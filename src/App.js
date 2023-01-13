@@ -1,7 +1,7 @@
 import React from 'react'
 import Sketch from 'react-p5'
 
-function clamped_update(p5, value, delta, low, high) {
+function clampedUpdate(p5, value, delta, low, high) {
     return Math.min(high, Math.max(low, value + Math.round(p5.random(-delta, delta))));
 }
 
@@ -9,31 +9,48 @@ function App() {
     let degree = 3;
     let coefficients = [];
     let r,g,b;
-    const min_coefficient = 0.001;
-    const max_coefficient = 5;
+    const resolution = 1000;
+    const minCoefficient = 0.001;
+    const maxCoefficient = 5;
+    const maxDelta = 0.01;
+    const canvasWidth = 400;
     const setup = (p5, canvasParentRef) => {
-        p5.createCanvas(500, 400).parent(canvasParentRef);
+
+        p5.createCanvas(500, canvasWidth, p5.WEBGL).parent(canvasParentRef);
         for(let i = 0; i < degree; i++){
-            coefficients.push(p5.random(min_coefficient, max_coefficient));
+            coefficients.push(p5.random(minCoefficient, maxCoefficient));
         }
-        p5.background(255, 130, 20);
         r = p5.floor(p5.random(256));
         g = p5.floor(p5.random(256));
         b = p5.floor(p5.random(256));
+        p5.background(0);
     };
     
-    const color_delta = 2;
+    const colorDelta = 2;
     const draw = p5 => {
         p5.stroke(r,g,b);
         p5.noFill();
-        p5.circle(100,100,100);
 
+        p5.beginShape();
+        const xMin = -5;
+        const xMax = 5;
+        for(let i = 0; i < resolution; i++){
+            let x = p5.map(i, 0, resolution, xMin, xMax)
+            let y = 0;
+            for (let j = 0; j < coefficients.length; j++) {
+                y += coefficients[j] * x ** j
+            }
+            x = p5.map(x, xMin, xMax, 0, canvasWidth);
+            p5.curveVertex(x,y);
+        }
+        p5.endShape();
 
-        console.log(r)
-        r = clamped_update(p5, r, color_delta, 0, 256);
-        g = clamped_update(p5, g, color_delta, 0, 256);
-        b = clamped_update(p5, b, color_delta, 0, 256);
-    }
+        r = clampedUpdate(p5, r, colorDelta, 0, 256);
+        g = clampedUpdate(p5, g, colorDelta, 0, 256);
+        b = clampedUpdate(p5, b, colorDelta, 0, 256);
+        coefficients = coefficients.map(x => x + p5.random(-maxDelta, maxDelta));
+
+    };
     
     return <Sketch setup={setup} draw={draw} />
 }
