@@ -2,8 +2,7 @@ import React from 'react'
 import Sketch from 'react-p5'
 
 function clamped_update(p5, value, delta, low, high) {
-    const num = Math.min(high, Math.max(low, value + p5.random(-delta, delta)));
-    return Math.floor(num);
+    return Math.min(high, Math.max(low, value + Math.round(p5.random(-delta, delta))));
 }
 
 function App() {
@@ -21,7 +20,7 @@ function App() {
         r = p5.floor(p5.random(256));
         g = p5.floor(p5.random(256));
         b = p5.floor(p5.random(256));
-    }
+    };
     
     const color_delta = 2;
     const draw = p5 => {
