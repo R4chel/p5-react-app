@@ -13,9 +13,9 @@ function App() {
     const min_coefficient = 0.001;
     const max_coefficient = 5;
     const setup = (p5, canvasParentRef) => {
-        p5.createCanvas(500, 400).parent(canvasParentRef)
+        p5.createCanvas(500, 400).parent(canvasParentRef);
         for(let i = 0; i < degree; i++){
-            coefficients.push(p5.random(min_coefficient, max_coefficient))
+            coefficients.push(p5.random(min_coefficient, max_coefficient));
         }
         p5.background(255, 130, 20);
         r = p5.floor(p5.random(256));
@@ -30,9 +30,10 @@ function App() {
         p5.circle(100,100,100);
 
 
-        r = clamped_update(p5, r, color_delta, 0, 256)
-        g = clamped_update(p5, g, color_delta, 0, 256)
-        b = clamped_update(p5, b, color_delta, 0, 256)
+        console.log(r)
+        r = clamped_update(p5, r, color_delta, 0, 256);
+        g = clamped_update(p5, g, color_delta, 0, 256);
+        b = clamped_update(p5, b, color_delta, 0, 256);
     }
     
     return <Sketch setup={setup} draw={draw} />
