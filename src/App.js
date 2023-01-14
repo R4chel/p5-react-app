@@ -30,7 +30,6 @@ function App() {
     const precision = 4;
     const colorDelta = 2;
     const draw = p5 => {
-        p5.background(0);
         p5.stroke(r,g,b);
         p5.noFill();
 
@@ -51,8 +50,7 @@ function App() {
         r = clampedUpdate(p5, r, colorDelta, 0, 256);
         g = clampedUpdate(p5, g, colorDelta, 0, 256);
         b = clampedUpdate(p5, b, colorDelta, 0, 256);
-        coefficients = coefficients.map(x => x + p5.round(p5.random(-maxDelta, maxDelta)),precision);
-        console.log(coefficients)
+        coefficients = coefficients.map(x => x + p5.round(p5.random(-maxDelta, maxDelta),precision));
 
     };
     
