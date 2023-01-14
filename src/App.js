@@ -6,7 +6,6 @@ function clampedUpdate(p5, value, delta, low, high) {
 }
 
 function App() {
-    let degree = 3;
     let coefficients = [];
     let r,g,b;
     const resolution = 200;
@@ -16,7 +15,10 @@ function App() {
     const canvasWidth = 400;
     const setup = (p5, canvasParentRef) => {
 
+        console.debug("running setup")
         p5.createCanvas(500, canvasWidth, p5.WEBGL).parent(canvasParentRef);
+        const degree = p5.floor(p5.random(2,6));
+        coefficients = [];
         for(let i = 0; i <= degree; i++){
             coefficients.push(p5.round(p5.random(minCoefficient, maxCoefficient), precision));
         }
@@ -36,7 +38,7 @@ function App() {
         p5.beginShape();
         const xMin = -5;
         const xMax = 5;
-        for(let i = 0; i < resolution; i++){
+        for(let i = 0; i <= resolution; i++){
             let x = p5.map(i, 0, resolution, xMin, xMax)
             let y = 0;
             for (let j = 0; j < coefficients.length; j++) {
