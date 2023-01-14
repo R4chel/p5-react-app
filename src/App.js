@@ -31,8 +31,9 @@ function App() {
     };
     
     const precision = 4;
-    const colorDelta = 2;
+    const colorDelta = 5;
     const draw = p5 => {
+        p5.strokeWeight(p5.round(p5.random(0.25,1),3))
         p5.stroke(r,g,b, p5.random(255));
         p5.noFill();
 
@@ -40,7 +41,7 @@ function App() {
         const xMin = -10;
         const xMax = 10;
         let numPoints = p5.round(p5.random(resolution/2, 3*resolution/2));
-        for(let i = 0; i <= resolution; i++){
+        for(let i = 0; i <= numPoints; i++){
             let x = p5.map(i, 0, numPoints, xMin, xMax)
             let y = 0;
             for (let j = 0; j < coefficients.length; j++) {
