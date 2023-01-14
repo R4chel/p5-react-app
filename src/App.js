@@ -42,7 +42,7 @@ function App() {
             for (let j = 0; j < coefficients.length; j++) {
                 y += coefficients[j] * x ** j;
             }
-            x = p5.map(x, xMin, xMax, 0, canvasWidth);
+            x = p5.map(x, xMin, xMax, -canvasWidth/2, canvasWidth/2);
             p5.curveVertex(x,y);
         }
         p5.endShape();
