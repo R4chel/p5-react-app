@@ -17,7 +17,7 @@ function App() {
     const setup = (p5, canvasParentRef) => {
 
         p5.createCanvas(500, canvasWidth, p5.WEBGL).parent(canvasParentRef);
-        for(let i = 0; i < degree; i++){
+        for(let i = 0; i <= degree; i++){
             coefficients.push(p5.round(p5.random(minCoefficient, maxCoefficient), precision));
         }
         
