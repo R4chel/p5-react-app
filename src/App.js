@@ -33,14 +33,15 @@ function App() {
     const precision = 4;
     const colorDelta = 2;
     const draw = p5 => {
-        p5.stroke(r,g,b);
+        p5.stroke(r,g,b, p5.random(255));
         p5.noFill();
 
         p5.beginShape();
         const xMin = -10;
         const xMax = 10;
+        let numPoints = p5.round(p5.random(resolution/2, 3*resolution/2));
         for(let i = 0; i <= resolution; i++){
-            let x = p5.map(i, 0, resolution, xMin, xMax)
+            let x = p5.map(i, 0, numPoints, xMin, xMax)
             let y = 0;
             for (let j = 0; j < coefficients.length; j++) {
                 y += coefficients[j] * x ** j;
