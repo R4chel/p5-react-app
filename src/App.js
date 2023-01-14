@@ -18,6 +18,7 @@ function App() {
         console.debug("running setup")
         p5.createCanvas(500, canvasWidth, p5.WEBGL).parent(canvasParentRef);
         const degree = p5.floor(p5.random(2,6));
+        const maxDelta = p5.random(p5.round( 0.1,2 ), 4)
         coefficients = [];
         for(let i = 0; i <= degree; i++){
             coefficients.push(p5.round(p5.random(minCoefficient, maxCoefficient), precision));
@@ -36,8 +37,8 @@ function App() {
         p5.noFill();
 
         p5.beginShape();
-        const xMin = -5;
-        const xMax = 5;
+        const xMin = -10;
+        const xMax = 10;
         for(let i = 0; i <= resolution; i++){
             let x = p5.map(i, 0, resolution, xMin, xMax)
             let y = 0;
